@@ -183,10 +183,44 @@ function gotCharacteristics(error, characteristics) {
 
 function handleSensor1(data) {
   try {
+    sensorLevel1 = data.getInt16(0, true);
+    console.log('Sensor 1 value:', sensorLevel1);
+    
+    // Check whether to move and transform image
+    isTransformed = sensorLevel1 > 1;
+    
+  } catch (error) {
+    console.error('Error reading sensor data:', error);
+  }
+//   try {
+//     let newValue = data.getInt16(0, true);
+    
+//     // Detect change from low to high (moment when button is pressed)
+//     if (newValue > 80 && lastSensor1Value <= 80) {
+//       if (!isPlaying) {
+//         music.play();
+//         isPlaying = true;
+//       } else {
+//         music.pause();  // Use pause() instead of stop()
+//         isPlaying = false;
+//       }
+//     }
+    
+//     lastSensor1Value = newValue;
+//     sensorLevel1 = newValue;
+//     console.log('Sensor 1 value:', sensorLevel1);
+    
+//   } catch (error) {
+//     console.error('Error reading sensor data:', error);
+//   }
+}
+
+function handleSensor2(data) {
+    try {
     let newValue = data.getInt16(0, true);
     
     // Detect change from low to high (moment when button is pressed)
-    if (newValue > 80 && lastSensor1Value <= 80) {
+    if (newValue > 80 && lastSensor2Value <= 80) {
       if (!isPlaying) {
         music.play();
         isPlaying = true;
@@ -196,26 +230,24 @@ function handleSensor1(data) {
       }
     }
     
-    lastSensor1Value = newValue;
-    sensorLevel1 = newValue;
-    console.log('Sensor 1 value:', sensorLevel1);
-    
-  } catch (error) {
-    console.error('Error reading sensor data:', error);
-  }
-}
-
-function handleSensor2(data) {
-  try {
-    sensorLevel2 = data.getInt16(0, true);
+    lastSensor2Value = newValue;
+    sensorLevel2 = newValue;
     console.log('Sensor 2 value:', sensorLevel2);
     
-    // Check whether to move and transform image
-    isTransformed = sensorLevel2 > 80;
-    
   } catch (error) {
     console.error('Error reading sensor data:', error);
   }
+  
+//   try {
+//     sensorLevel2 = data.getInt16(0, true);
+//     console.log('Sensor 2 value:', sensorLevel2);
+    
+//     // Check whether to move and transform image
+//     isTransformed = sensorLevel2 > 1;
+    
+//   } catch (error) {
+//     console.error('Error reading sensor data:', error);
+//   }
 }
 
 function moveBee() {
